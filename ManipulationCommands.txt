@@ -1,0 +1,99 @@
+"ManipulationCommands": {
+    "List-containers": {
+        "docker ps"
+        "docker ps -a"
+    }
+
+    "List-image": {
+        docker images
+    }
+
+    "Create-image": {
+        "docker run nginx"
+        "docker run -it -d nginx"
+        "docker run -d --name image_name -p 8080:80 nginx"
+    }
+
+    "Delete-image-or-containers": {
+        docker rmi image_name
+    }
+
+    "Bind-folder-inside-image": {
+        docker run -d --name image_name -p 8080:80 --mount type=bind,source="$(pwd)"/html,target=/usr/share/nginx/html nginx
+
+        docker run -d --name image_name -p 8080:80 -v /home/igor/Documents/CodeRepositories/Docker/html/:/usr/share/nginx/html nginx
+    }
+    
+    "Stop-start-image": {
+        docker start image_name
+        docker stop image_name
+    }
+
+    "Execute-linux-terminal-inside-image": {
+        docker exec -it image_name bash
+    }
+
+    "Remove-image": {
+        "docker rm nginx -f"
+    }
+
+    //Volumes binds an local folder to an another folder inside the image
+
+    "List-Volumes": {    
+        "docker volume"
+        "docker volume ls"
+    }
+
+    "Create-Volume": {
+        docker volume create volume_name
+    }
+
+    "Bind-image-to-volume": {
+        docker run --name nginx -d --mount type=volume,source=meuvolume,target=/app nginx
+        docker run --name nginx2 -d -v meuvolume:/app nginx
+    }
+
+    "Clear-non-used-volumes": {
+        docker volume prune
+    }
+
+    "Dockerfile-custom-image": {
+        sudo docker build -t yngviwarrior/nginx-com-vim:latest .
+    }
+
+    "Run-images": {
+        docker run --rm igor/hello
+        docker run --rm --name an_name -p x:x image_name
+        docker run --rm --name an_name --network network_name -p x:x image_name
+    }
+
+    "Delete-all-images": {
+        docker rm $(docker ps -a -q) -f
+    }
+
+    "Network": {
+        docker network ls
+        docker network inspect network_type
+    }
+
+    "Attach-detached-images": {
+        docker attach image_name
+    }
+
+    "Leave-attach-mode": {
+        ctrl+p && ctrl+q 
+    }
+
+    "Create-named-network": {
+        docker network create network_name
+        docker network create --driver host network_name
+    }
+
+    "Add-container-into-network": {
+        docker network connect network_name container_name
+    }
+
+    "Docker-Host-IP": {
+        curl http://172.17.0.1:port
+    }
+}
